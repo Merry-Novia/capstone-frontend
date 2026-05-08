@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://capstonebare-production.up.railway.app/api', // tambah /api di sini
+  baseURL: 'https://capstonebare-production.up.railway.app/api', 
 })
 
 // Dashboard
