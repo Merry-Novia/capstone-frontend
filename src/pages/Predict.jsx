@@ -123,27 +123,45 @@ export default function Predict() {
         {/* Result */}
         <div className="card">
           <div className="card-title">Hasil Prediksi</div>
+
           {!result ? (
             <div style={{ textAlign: 'center', padding: '48px 0', color: '#94a3b8' }}>
               <div style={{ fontSize: 48, marginBottom: 12 }}>🔮</div>
-              <div style={{ fontSize: 14 }}>Isi form dan klik Prediksi untuk melihat hasil</div>
+              <div style={{ fontSize: 14 }}>
+                Isi form dan klik Prediksi untuk melihat hasil
+              </div>
             </div>
           ) : (
-            <div className={`result-box ${result.risk_level === 'LOW' ? 'low' : 'high'}`}>
-              <div style={{ fontSize: 48, marginBottom: 8 }}>
-                {result.risk_level === 'LOW' ? '✅' : '⚠️'}
-              </div>
-              <div className={`result-level ${result.risk_level === 'LOW' ? 'low' : 'high'}`}>
-                {result.risk_level === 'LOW' ? 'Risiko Rendah' : 'Risiko Tinggi'}
-              </div>
-              <div className="result-msg">{result.message}</div>
-              <div className="result-prob">
-                Probabilitas Risiko: {(result.risk_probability * 100).toFixed(1)}%
-              </div>
-            </div>
+            (() => {
+              const isLowRisk = result.risk_probability < 0.5
+
+              return (
+                <div className={`result-box ${isLowRisk ? 'low' : 'high'}`}>
+                  <div style={{ fontSize: 48, marginBottom: 8 }}>
+                    {isLowRisk ? '✅' : '⚠️'}
+                  </div>
+
+                  <div className={`result-level ${isLowRisk ? 'low' : 'high'}`}>
+                    {isLowRisk ? 'Risiko Rendah' : 'Risiko Tinggi'}
+                  </div>
+
+                  <div className="result-msg">
+                    {isLowRisk
+                      ? 'Risiko rendah, kondisi pembelajaran stabil.'
+                      : 'Mahasiswa berisiko tinggi mengalami kesulitan belajar.'}
+                  </div>
+
+                  <div className="result-prob">
+                    Probabilitas Risiko:{' '}
+                    {(result.risk_probability * 100).toFixed(1)}%
+                  </div>
+                </div>
+              )
+            })()
           )}
         </div>
       </div>
     </div>
   )
 }
+
