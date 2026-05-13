@@ -35,7 +35,7 @@ export default function Predict() {
       console.log(res.data.data)
       setResult(res.data.data)
     } catch (err) {
-      setError('Gagal melakukan prediksi. Pastikan backend & AI API sudah berjalan.')
+      setError('Gagal melakukan prediksi. Pastikan Backend & AI API sudah berjalan.')
     } finally {
       setLoading(false)
     }
